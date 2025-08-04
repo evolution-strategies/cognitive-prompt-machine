@@ -24,3 +24,4 @@ venv/
 *.jpg
 *.pdf
 *.out
+!paper/paper.pdf
