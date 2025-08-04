@@ -59,7 +59,7 @@ This script demonstrates how to execute CPL programs using the OpenAI GPT‑4o A
 3. **Run an example program**:
 
    ```bash
-  python run_cpl.py programs/example1.cpl
+   python run_cpl.py programs/example1.cpl
    ```
 
    The interpreter will send the entire interpreter specification and program to the model in a single call and then print the model’s response.
