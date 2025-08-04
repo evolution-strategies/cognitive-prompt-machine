@@ -1,0 +1,20 @@
+10 LET input = "Photosynthesis is the process by which green plants use sunlight to synthesize food from carbon dioxide and water."
+20 StartModel input
+30 ExtractFacts input
+40 FOR fact in declarative
+50   EvaluateFacts fact
+60 NEXT
+70 FOR step in procedural
+80   EvaluateSteps step
+90 NEXT
+100 ExtendModel input
+110 LET input = "Photosynthesis also produces oxygen as a byproduct."
+120 ExtractFacts input
+130 FOR fact in declarative
+140   EvaluateFacts fact
+150   IF IdentifyConflict fact == True THEN
+160     Assimilate fact
+170 NEXT
+180 ExtendModel input
+190 FindModel "Photosynthesis"
+200 END

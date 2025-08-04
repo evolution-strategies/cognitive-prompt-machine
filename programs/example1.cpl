@@ -1,0 +1,8 @@
+10 LET input = "A looks like B. B can never look like C. A looks like C."
+20 ExtractFacts input
+30 FOR fact in declarative
+40   EvaluateFacts fact
+50   IF IdentifyConflict fact == True THEN
+60     Assimilate fact
+70 NEXT
+80 END

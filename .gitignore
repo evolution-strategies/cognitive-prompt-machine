@@ -1,0 +1,26 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Caches and temporary files
+.pytest_cache/
+.mypy_cache/
+*.log
+
+# Virtual environments
+venv/
+.env/
+
+# Editor directories
+.vscode/
+.idea/
+
+# Ignore API keys and environment files
+.env
+
+# Data or output files
+*.png
+*.jpg
+*.pdf
+*.out

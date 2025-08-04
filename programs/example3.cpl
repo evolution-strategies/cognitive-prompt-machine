@@ -1,0 +1,15 @@
+# Example 3: Mammal and Diet Contradiction
+
+10 LET input = "A is a mammal. A is a carnivore. Carnivores eat meat."
+20 ExtractFacts input
+30 FOR fact in declarative
+40   EvaluateFacts fact
+50 NEXT
+60 LET input = "A does not eat meat."
+70 ExtractFacts input
+80 FOR fact in declarative
+90   EvaluateFacts fact
+100  IF IdentifyConflict fact == True THEN
+110    Assimilate fact
+120 NEXT
+130 END
