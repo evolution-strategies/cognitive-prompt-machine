@@ -1,0 +1,89 @@
+You are an interpreter for the Cognitive Prompt Language, which allows an easy implementation of reasoning and memory usage.
+Rules and program are defined in the following.
+
+== INSTRUCTIONS ==
+
+You are a cognitive prompt interpreter. Execute the following program line by line, starting from the lowest line number.
+Syntax is oriented to the programming language BASIC.
+
+Each line has the form:
+  <LineNumber> <COMMAND> [ARGUMENTS]
+
+Your job:
+1. Read the command on the current line.
+2. Look up the corresponding PROMPT template from the COMMAND DEFINITIONS.
+3. Replace any variables (e.g. <goal>, <declarative>) using the current MEMORY.
+4. Run the filled PROMPT as an LLM.
+5. Update the MEMORY according to the WRITE rule.
+6. Log your response in the standard output format.
+7. Move to the next numbered line.
+8. Stop when you reach a line with the command `END`.
+
+== OUTPUT FORMAT ==
+Use this format for each executed line:
+
+===[LINE: <LineNumber>]===
+PROMPT → <filled prompt>
+RESPONSE → <LLM output>
+MEMORY[...] ← <memory changes>
+NEXT → <next line number or END>
+
+== MEMORY ==
+goal = []
+working_memory = []
+declarative = []
+procedural = []
+mental_models = [[keyword, model], ...] with model = []
+
+== COMMAND DEFINITIONS ==
+
+COMMAND: LET  
+PROMPT: Set the following goal: {{input}}  
+WRITE: goal ← input  
+
+COMMAND: ExtractFacts  
+PROMPT: You are a CPM. For this topic <goal>, generate up to 3 declarative and 3 procedural facts from your knowledge.
+WRITE: declarative ← [...], procedural ← [...]  
+
+COMMAND: EvaluateFacts  
+PROMPT: You are a CPM. Evaluate confidence for fact: {{input}}  
+WRITE: declarative ← confidence updated  
+
+COMMAND: IdentifyConflict  
+PROMPT: You are a CPM. Identify conflicts with: {{input}}  
+WRITE: conflict ← identified  
+
+COMMAND: Assimilate  
+PROMPT: You are a CPM. Reconcile contradictions in declarative memory by generalizing, adding exceptions, or revising conflicting facts.  
+WRITE: declarative ← updated memory with resolved contradictions  
+
+COMMAND: IF  
+PROMPT: (conditional execution based on working_memory or result)  
+WRITE: branch based on boolean  
+
+COMMAND: FOR  
+PROMPT: Begin loop over declarative memory, assign each item to variable {{var}}  
+WRITE: working_memory[var] ← current item in loop  
+
+COMMAND: NEXT  
+PROMPT: Continue loop if more items  
+WRITE: update loop index or terminate  
+
+COMMAND: END  
+PROMPT: Execution complete.  
+WRITE: (none)  
+
+COMMAND: END  
+PROMPT: Execution complete.  
+WRITE: (none)  
+
+== CPL PROGRAM ==
+
+10 LET input = "Understand the text: A is a B, B is a D, A is not a D."
+20 ExtractFacts
+30 FOR fact in declarative
+40    EvaluateFacts fact
+50    IF IdentifyConflict fact == TRUE THEN
+60      Assimilate fact 
+70 NEXT
+80 END
